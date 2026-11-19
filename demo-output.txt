@@ -1,0 +1,43 @@
+$ node server.js   # startup self-test runs first
+ERROR:  4 Error in template Num2Bits_1 line: 38
+Error in template RangeProof_2 line: 49
+
+[rangeproof] startup self-test PASS
+[rangeproof] listening on port 18778
+
+$ curl localhost:18778/health
+{
+  "status": "ok",
+  "agent": "rangeproof-agent",
+  "version": "1.0.0",
+  "circuit": {
+    "name": "RangeProof",
+    "curve": "bn128",
+    "protocol": "groth16",
+    "statement": "lo <= value <= hi, value private",
+    "publicSignals": [
+      "lo",
+      "hi"
+    ],
+    "bound": "all values must be integers in [0, 2^31); max 2147483647"
+  },
+  "selfTest": "PASS"
+}
+
+$ curl localhost:18778/ping
+{"pong":true}
+
+# A user with a PRIVATE balance of 7250 wants to prove it lies in
+# the eligibility window [5000, 10000] — without revealing 7250.
+$ curl -X POST localhost:18778/prove -d '{"value":7250,"lo":5000,"hi":10000}'
+publicSignals: [ '5000', '10000' ]  <- only the range; the balance 7250 appears nowhere
+proof (Groth16, bn128): {"pi_a":["17625740607124455418029887385838730644676462344290897269177039764556477287866","779621868312175294763877063360...
+
+# Anyone can now verify the claim — seeing only the proof and [5000, 10000]:
+$ curl -X POST localhost:18778/verify -d @proof.json
+{"valid":true}
+
+# And a balance of 4200 (below the window) can never produce a proof:
+$ curl -X POST localhost:18778/prove -d '{"value":4200,"lo":5000,"hi":10000}'
+{"error":"cannot prove statement: Error: Assert Failed. Error in template Num2Bits_1 line: 38\nError in template RangeProof_2 line: 49\n"}
+HTTP 422

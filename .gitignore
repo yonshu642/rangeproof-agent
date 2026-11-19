@@ -1,0 +1,4 @@
+node_modules/
+bin/
+circuit/build/*.ptau
+circuit/build/rangeproof_0000.zkey

@@ -1,0 +1,16 @@
+{
+  "name": "rangeproof-agent",
+  "version": "1.0.0",
+  "description": "RangeProof Agent: privacy eligibility checker that proves a private number lies inside a public range [lo, hi] with a Groth16 zero-knowledge proof, without revealing the number.",
+  "license": "MIT",
+  "main": "server.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "snarkjs": "^0.7.6"
+  }
+}
