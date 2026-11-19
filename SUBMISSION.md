@@ -10,11 +10,11 @@ RangeProof Agent — prove you qualify, reveal nothing
 
 ## Agent link
 
-TO_BE_DEPLOYED (public GitHub repo URL)
+https://github.com/yonshu642/rangeproof-agent
 
 ## Public endpoint
 
-TO_BE_DEPLOYED (hosted HTTPS endpoint; answers /health, /ping, /verify)
+https://rangeproof-agent-production.up.railway.app (answers /health, /ping, /prove, /verify)
 
 ## Use case
 

@@ -70,7 +70,7 @@ cannot be proven. If the self-test fails, the process exits.
 
 ## Live endpoint
 
-**Public endpoint:** TO_BE_DEPLOYED
+**Public endpoint:** https://rangeproof-agent-production.up.railway.app
 
 ## Run it
 
