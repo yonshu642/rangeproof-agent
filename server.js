@@ -62,6 +62,21 @@ function readJsonBody(req) {
 async function handle(req, res) {
   const url = new URL(req.url, "http://localhost");
 
+  if (req.method === "GET" && url.pathname === "/") {
+    return sendJson(res, 200, {
+      agent: "rangeproof-agent",
+      version: "1.0.0",
+      statement: "lo <= value <= hi, value private",
+      endpoints: {
+        health: "GET /health",
+        ping: "GET /ping",
+        prove: "POST /prove { value, lo, hi }",
+        verify: "POST /verify { proof, publicSignals }",
+      },
+      repo: "https://github.com/yonshu642/rangeproof-agent",
+    });
+  }
+
   if (req.method === "GET" && url.pathname === "/health") {
     return sendJson(res, 200, {
       status: "ok",
